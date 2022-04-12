@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import TokenPayload from './tokenPayload.interface';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
@@ -15,6 +15,7 @@ export class AuthenticationService {
 
   public async register(registrationData: RegisterDto) {
     const hashedPassword = await bcrypt.hash(registrationData.password, 10);
+
     try {
       const createdUser = await this.usersService.create({
         ...registrationData,
