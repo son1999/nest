@@ -1,17 +1,16 @@
 import { Module } from '@nestjs/common';
-import { PostsModule } from './posts/posts.module';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
-import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { APP_FILTER } from '@nestjs/core';
 import { ExceptionsLoggerFilter } from './utils/exceptionsLogger.filter';
 import { AddressModule } from './address/address.module';
+import { CategoriesModule } from './categories/categories.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
-    PostsModule,
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         POSTGRES_HOST: Joi.string().required(),
@@ -24,10 +23,11 @@ import { AddressModule } from './address/address.module';
         JWT_EXPIRATION_TIME: Joi.string().required(),
       }),
     }),
-    DatabaseModule,
     UsersModule,
     AuthenticationModule,
     AddressModule,
+    CategoriesModule,
+    PostsModule,
   ],
   controllers: [],
   providers: [
